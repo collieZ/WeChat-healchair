@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="0e49b6e7-bf01-4d5f-adbe-fb255701c609" name="wechat" url="http://104.194.91.121">
+        <fileTransfer host="104.194.91.121" port="21" rootFolder="/pub">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
