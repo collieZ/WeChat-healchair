@@ -71,10 +71,10 @@ setInterval(function () {
 
                 case '有无人':
                     if (result[number].value == 0){
-                        console.log('座椅上无人');
+                        console.log('床上无人');
                         zhuangtai_state = 0;
                     } else {
-                        console.log('座椅上有人');
+                        console.log('床上有人');
                         zhuangtai_state = 1;
                     }
                     break;
@@ -113,9 +113,9 @@ router.use('/', wechat(config, function (req, res, next) {
     else if (message.Content === '状态') {
 
         if (zhuangtai_state == 1){
-            res.reply('有人在座椅上');
+            res.reply('有人在床上');
         } else {
-            res.reply('座椅上无人');
+            res.reply('床上无人');
         }
     }
     else if (message.Content === '打鼾') {
@@ -148,7 +148,7 @@ setInterval(function () {
 
             if (warn_flag == 0){
 
-                api.sendText('oZ1891R5kyrqBNtEDn00bYg3e77Y', '座椅上有人呼吸急促，心率加快，请及时送医检查！！', function (err, result) {
+                api.sendText('oZ1891R5kyrqBNtEDn00bYg3e77Y', '床上有人呼吸急促，心率加快，请及时送医检查！！', function (err, result) {
 
                     if (err){
                         console.log('error', err);
