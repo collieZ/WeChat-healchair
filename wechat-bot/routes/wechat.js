@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var wechat = require('wechat');
+var WechatAPI = require('wechat-api');
 var mysql = require('mysql');
 var schedule = require("node-schedule");
 
@@ -18,18 +19,11 @@ var huxi_state = 0,         // 座椅人状态标志变量
 
 
 var sql = 'SELECT * FROM heal_chair';
-// 定时任务
 
-// var rule = new schedule.RecurrenceRule();
-// var times = [];
-// for (var i = 1; i < 60; i++){
-//     times.push(i);
-// }
-// rule.second = times;
-// var doSomeThing = schedule.scheduleJob(rule, function () {
-//                     // console.log('定时任务测试');
-// })
 
+var api = new WechatAPI(config.appid, '056b3b767a368f84fac584456111ad7f');
+
+// 定时读取数据库任务
 setInterval(function () {
 
     var connection = mysql.createConnection({       // 数据库配置信息   每次关闭连接都要重新创建一个连接
@@ -99,19 +93,6 @@ setInterval(function () {
 // 定时任务 end
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 微信公众号处理 start
 
 router.use(express.query());
@@ -158,3 +139,32 @@ router.use('/', wechat(config, function (req, res, next) {
 module.exports = router;
 
 // 微信公众号处理 end
+
+var warn_flag = 0;
+
+setInterval(function () {
+
+        if (huxi_state == 1){
+
+            if (warn_flag == 0){
+
+                api.sendText('oZ1891R5kyrqBNtEDn00bYg3e77Y', '座椅上有人呼吸急促，心率加快，请及时送医检查！！', function (err, result) {
+
+                    if (err){
+                        console.log('error', err);
+                    } else {
+                        console.log('info:', 'send message success');
+                    }
+                });
+                warn_flag = 1;
+                // send msg
+            } else  return;
+        } else {
+
+            warn_flag = 0;
+        }
+    }
+,5000);
+
+
+
