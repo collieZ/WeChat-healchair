@@ -103,7 +103,7 @@ function checktime(t) {     // 时间格式修正
 function startTime() {
     var date = new Date();
     var year = date.getFullYear();
-    var month = date.getMonth();
+    var month = date.getMonth() + 1;
     var day = date.getDate();
     var h = date.getHours();
     var m = date.getMinutes();
@@ -120,28 +120,6 @@ function startTime() {
         s: s
     }
 }
-
-// realTime = setInterval(function () {        // 获取当前时间
-//     var date = new Date();
-//     var year = date.getFullYear();
-//     var month = date.getMonth();
-//     var day = date.getDate();
-//     var h = date.getHours();
-//     var m = date.getMinutes();
-//     var s = date.getSeconds();
-//
-//     m = checktime(m);
-//     s = checktime(s);
-//     // console.log('更新时间:',year,'-',month,'-',day,' ',h,':',m,':',s);
-//     return {
-//             ye: year,
-//             mo: month,
-//             da: day,
-//             h: h,
-//             m: m,
-//             s: s
-//         }
-// },1000)
 
 
 function randNum(minnum , maxnum){      // 产生随机数 生成心率
@@ -176,7 +154,8 @@ router.use('/', wechat(config, function (req, res, next) {
         if (zhuangtai_state == 1){
 
             var times = startTime();
-            res.reply('有人在床上. ' + '数据更新时间:' + times.ye + '-' + times.mo + '-' + times.da + ' ' + times.h + ':' + times.m + '');
+            res.reply('有人在床上. ' + '数据更新时间:' + times.ye + '-' + times.mo + '-' + times.da + ' ' + times.h + ':' + times.m +
+                '        http://p4.helloyzy.cn/bed/');
         } else {
 
             var times = startTime();
