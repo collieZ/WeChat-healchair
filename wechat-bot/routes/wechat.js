@@ -139,12 +139,12 @@ router.use('/', wechat(config, function (req, res, next) {
 
         if (dahan_state == 1 || huxi_state == 1){
 
-            var nums = randNum(100,130);
+            var nums = randNum(100,110);
             var times = startTime();
             res.reply('心率略微偏高! '+'心率为'+nums+'次每分钟，数据更新时间:'+times.ye+'-'+times.mo+'-'+times.da+' '+times.h+':'+times.m);
         } else {
 
-            var nums = randNum(65,98);
+            var nums = randNum(60,80);
             var times = startTime();
             res.reply('心率为' + nums + '次每分钟，数据更新时间:' + times.ye + '-' + times.mo + '-' + times.da + ' ' + times.h + ':' + times.m);
         }
@@ -155,7 +155,7 @@ router.use('/', wechat(config, function (req, res, next) {
 
             var times = startTime();
             res.reply('有人在床上. ' + '数据更新时间:' + times.ye + '-' + times.mo + '-' + times.da + ' ' + times.h + ':' + times.m +
-                '        http://p4.helloyzy.cn/bed/');
+                  '        http://p4.helloyzy.cn/bed/');
         } else {
 
             var times = startTime();
@@ -166,12 +166,12 @@ router.use('/', wechat(config, function (req, res, next) {
 
         if (dahan_state == 1){
 
-            var nums = randNum(100,130);
+            var nums = randNum(100,110);
             var times = startTime();
             res.reply('有人打鼾,心率偏高! ' + '心率为' + nums + '次每分钟，数据更新时间:' + times.ye + '-' + times.mo + '-' + times.da + ' ' + times.h + ':' + times.m);
         } else {
 
-            var nums = randNum(60,100);
+            var nums = randNum(60,80);
             var times = startTime();
             res.reply('没人打鼾. ' + '心率为'+nums+'次每分钟，数据更新时间:' + times.ye + '-' + times.mo + '-' + times.da + ' ' + times.h + ':' + times.m);
         }
@@ -179,14 +179,14 @@ router.use('/', wechat(config, function (req, res, next) {
     else if (message.Content === '呼吸'){
         if (huxi_state == 1){
 
-            var nums = randNum(100,130);
+            var nums = randNum(16,20);
             var times = startTime();
-            res.reply('呼吸急促，心率偏高!! ' + '心率为'+nums+'次每分钟，数据更新时间:' + times.ye + '-' + times.mo + '-' + times.da + ' ' + times.h + ':' + times.m);
+            res.reply('呼吸急促，心率、呼吸率偏高!! ' + '呼吸率为'+nums+'/分，数据更新时间:' + times.ye + '-' + times.mo + '-' + times.da + ' ' + times.h + ':' + times.m);
         } else {
 
-            var nums = randNum(60,100);
+            var nums = randNum(20,30);
             var times = startTime();
-            res.reply('呼吸正常. ' + '心率为'+nums+'次每分钟，数据更新时间:' + times.ye + '-' + times.mo + '-' + times.da + ' ' + times.h + ':' + times.m);
+            res.reply('呼吸正常. ' + '呼吸率为'+nums+'/分，数据更新时间:' + times.ye + '-' + times.mo + '-' + times.da + ' ' + times.h + ':' + times.m);
         }
     }
 
