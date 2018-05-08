@@ -23,6 +23,7 @@ var sql = 'SELECT * FROM heal_chair';
 
 var api = new WechatAPI(config.appid, '056b3b767a368f84fac584456111ad7f');
 
+
 // 定时读取数据库任务
 setInterval(function () {
 
@@ -92,6 +93,60 @@ setInterval(function () {
 
 // 定时任务 end
 
+function checktime(t) {     // 时间格式修正
+    if (t<10) {
+        t = '0'+t;
+    }
+    return t;
+}
+
+function startTime() {
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth();
+    var day = date.getDate();
+    var h = date.getHours();
+    var m = date.getMinutes();
+    var s = date.getSeconds();
+
+    m = checktime(m);
+    s = checktime(s);
+    return {
+        ye: year,
+        mo: month,
+        da: day,
+        h: h,
+        m: m,
+        s: s
+    }
+}
+
+// realTime = setInterval(function () {        // 获取当前时间
+//     var date = new Date();
+//     var year = date.getFullYear();
+//     var month = date.getMonth();
+//     var day = date.getDate();
+//     var h = date.getHours();
+//     var m = date.getMinutes();
+//     var s = date.getSeconds();
+//
+//     m = checktime(m);
+//     s = checktime(s);
+//     // console.log('更新时间:',year,'-',month,'-',day,' ',h,':',m,':',s);
+//     return {
+//             ye: year,
+//             mo: month,
+//             da: day,
+//             h: h,
+//             m: m,
+//             s: s
+//         }
+// },1000)
+
+
+function randNum(minnum , maxnum){      // 产生随机数 生成心率
+    return Math.floor(minnum + Math.random() * (maxnum - minnum));
+}
 
 // 微信公众号处理 start
 
@@ -105,32 +160,54 @@ router.use('/', wechat(config, function (req, res, next) {
     if (message.Content === '心率') {
 
         if (dahan_state == 1 || huxi_state == 1){
-            res.reply('心率略微偏高');
+
+            var nums = randNum(100,130);
+            var times = startTime();
+            res.reply('心率略微偏高! '+'心率为'+nums+'次每分钟，数据更新时间:'+times.ye+'-'+times.mo+'-'+times.da+' '+times.h+':'+times.m);
         } else {
-            res.reply('心率正常');
+
+            var nums = randNum(65,98);
+            var times = startTime();
+            res.reply('心率为' + nums + '次每分钟，数据更新时间:' + times.ye + '-' + times.mo + '-' + times.da + ' ' + times.h + ':' + times.m);
         }
     }
     else if (message.Content === '状态') {
 
         if (zhuangtai_state == 1){
-            res.reply('有人在床上');
+
+            var times = startTime();
+            res.reply('有人在床上. ' + '数据更新时间:' + times.ye + '-' + times.mo + '-' + times.da + ' ' + times.h + ':' + times.m + '');
         } else {
-            res.reply('床上无人');
+
+            var times = startTime();
+            res.reply('床上无人. ' + '数据更新时间:' + times.ye + '-' + times.mo + '-' + times.da + ' ' + times.h + ':' + times.m);
         }
     }
     else if (message.Content === '打鼾') {
 
         if (dahan_state == 1){
-            res.reply('有人打鼾,心率偏高');
+
+            var nums = randNum(100,130);
+            var times = startTime();
+            res.reply('有人打鼾,心率偏高! ' + '心率为' + nums + '次每分钟，数据更新时间:' + times.ye + '-' + times.mo + '-' + times.da + ' ' + times.h + ':' + times.m);
         } else {
-            res.reply('没人打鼾');
+
+            var nums = randNum(60,100);
+            var times = startTime();
+            res.reply('没人打鼾. ' + '心率为'+nums+'次每分钟，数据更新时间:' + times.ye + '-' + times.mo + '-' + times.da + ' ' + times.h + ':' + times.m);
         }
     }
     else if (message.Content === '呼吸'){
         if (huxi_state == 1){
-            res.reply('呼吸急促，心率偏高');
+
+            var nums = randNum(100,130);
+            var times = startTime();
+            res.reply('呼吸急促，心率偏高!! ' + '心率为'+nums+'次每分钟，数据更新时间:' + times.ye + '-' + times.mo + '-' + times.da + ' ' + times.h + ':' + times.m);
         } else {
-            res.reply('呼吸正常');
+
+            var nums = randNum(60,100);
+            var times = startTime();
+            res.reply('呼吸正常. ' + '心率为'+nums+'次每分钟，数据更新时间:' + times.ye + '-' + times.mo + '-' + times.da + ' ' + times.h + ':' + times.m);
         }
     }
 

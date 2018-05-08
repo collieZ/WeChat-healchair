@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="renderer" content="webkit"> -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <meta http-equiv="pragma" content="no-cache" /> -->
+    <script src="./Chart.bundle.js"></script>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .chart-wrap{
+            width: 100%;
+            height: 100%;
+        }
+        @media all and (orientation : landscape) {  
+                    .chart-wrap {   
+                        /* background-color: #ff0000;    */
+                    }  
+                }  
+        @media all and (orientation : portrait){  
+                    #myChart {  
+                        /* background-color: #00ff00;   */
+                    }  
+                    .chart-wrap{
+                        /* background-color: #ff0000;    */
+                    }
+                }  
+    </style>
+    <title>chart</title>
+</head>
+<body>
+        <div class="chart-wrap">
+            <canvas id="myChart"></canvas>
+        </div>
+    <script>
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var datas = new Array();
+
+        function randNum(minnum, maxnum) {      // 产生随机数 生成心率
+                return Math.floor(minnum + Math.random() * (maxnum - minnum));
+            }
+        
+        for (var i = 0; i < 24; i++){
+            var num = randNum(60, 100);
+            datas.push(num);
+        }
+        
+        Chart.defaults.global.defaultFontColor = 'black';
+        var myChart = new Chart(ctx, {
+            // 要创建的图表类型
+            type: 'line',
+
+            // 数据集
+            data: {
+                labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',
+                    '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'],
+                datasets: [{
+                    label: "心率",
+                    fill: false,
+                    borderWidth: 2,
+                    pointBackgroundColor: 'yellow',
+                    pointHoverBackgroundColor: 'rgba(230, 11, 193, 0.801)',
+                    pointHoverBorderColor: 'rgba(230, 128, 11, 0.801)',
+                    pointBorderColor: 'rgba(10, 182, 110, 0.719)',
+                    fillColor: "rgb(220,220,220,0.6)", //背景填充色
+                    strokeColor: "rgb(220,220,220,1)", //路径颜色
+                    pointColor: "rgb(220,220,220,1)", //数据点颜色
+                    pointStrokeColor: "#fff", //数据点边框颜色
+                    borderColor: 'red',
+                    data: datas
+                }]
+            },
+
+            // 配置项
+            options: {
+                title: {
+                    display: true,
+                    text: '非接触式打鼾监测系统',
+                    fontSize: 18,
+                    fontFamily: 'Arial',
+                    fontColor: '#66ccff',
+                    fontStyle: 'bold'
+                },
+                legend: {
+                    labels: {
+                        // This more specific font property overrides the global property
+                        fontColor: 'rgb(76, 175, 142)'
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        stacked: true
+                    }]
+                },
+                elements: {
+                    line: {
+                        tension: 0, // disables bezier curves
+                    }
+                }
+            }
+
+        });
+
+    </script>
+</body>
+</html>
